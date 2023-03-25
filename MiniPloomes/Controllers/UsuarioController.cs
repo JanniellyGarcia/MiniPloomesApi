@@ -55,6 +55,25 @@ namespace MiniPloomes.Controllers
             return NoContent();
         }
 
+        [HttpPut("{usuarioId}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public async Task<ActionResult> AtualizarUsuarioAsync([FromBody] UsuarioRequest novoUsuario, int usuarioId)
+        {
+            try
+            {
+                await _usuarioService.AtualizarUsuarioAsync(novoUsuario, usuarioId);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+
+                  return NotFound(ex.Message);
+            }
+           
+        }
+
         [HttpDelete("{idUsuario}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(409)]

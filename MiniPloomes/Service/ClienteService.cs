@@ -101,6 +101,29 @@ namespace MiniPloomes.Service
             connection.CloseConnection();
         }
 
+        public async Task AtualizarClienteAsync(ClienteRequest cliente, int idCliente)
+        {
+
+            DataBaseConnection connection = new DataBaseConnection();
+
+            await BuscarClientePorIdAsync(idCliente);
+            await _usuarioClienteService.AtualizarClienteAsync(cliente, idCliente);
+
+            connection.GetConnection();
+
+
+            connection.SqlCommand = new SqlCommand("UPDATE cliente SET IdUsuario = @idUsuario, NomeCliente = @nome WHERE IdCliente = @idCliente", connection.SqlConnection);
+            connection.SqlCommand.Parameters.AddWithValue("@idCliente", idCliente);
+            connection.SqlCommand.Parameters.AddWithValue("@idUsuario", cliente.IdUsuario);
+            connection.SqlCommand.Parameters.AddWithValue("@nome", cliente.Nome);
+            connection.SqlCommand.CommandType = CommandType.Text;
+            await connection.SqlCommand.ExecuteNonQueryAsync();
+
+            connection.CloseConnection();
+
+
+        }
+
         public async Task DeletarClienteAsync(int idCliente)
         {
             DataBaseConnection connection = new DataBaseConnection();
@@ -116,5 +139,7 @@ namespace MiniPloomes.Service
 
             connection.CloseConnection();
         }
+
+        
     }
 }

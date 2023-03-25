@@ -10,6 +10,8 @@ namespace MiniPloomes.Service
 
     public class UsuarioClienteService : IUsuarioClienteService
     {
+        
+
         public async Task<List<ClienteResponse>> BuscaClientePorUsuarioAsync(int UsuarioId)
         {
             DataBaseConnection connection = new DataBaseConnection();
@@ -83,6 +85,43 @@ namespace MiniPloomes.Service
 
             connection.CloseConnection();
         }
+
+        public async Task AtualizarUsuarioAsync(UsuarioRequest usuario, int usuarioId)
+        {
+            DataBaseConnection connection = new DataBaseConnection();
+            connection.GetConnection();
+
+            connection.SqlCommand = new SqlCommand("UPDATE usuario_cliente SET NomeUsuario = @nome, EmailUsuario = @email WHERE IdUsuario = @id", connection.SqlConnection);
+            connection.SqlCommand.Parameters.AddWithValue("@id", usuarioId);
+            connection.SqlCommand.Parameters.AddWithValue("@nome", usuario.Nome);
+            connection.SqlCommand.Parameters.AddWithValue("@email", usuario.Email);
+            connection.SqlCommand.CommandType = CommandType.Text;
+            await connection.SqlCommand.ExecuteNonQueryAsync();
+
+            connection.CloseConnection();
+        }
+
+
+        public async  Task AtualizarClienteAsync(ClienteRequest cliente, int clienteId)
+        {
+
+            DataBaseConnection connection = new DataBaseConnection();
+            connection.GetConnection();
+
+            var novoUsuarioParaCliente = await BuscarUsuarioPorIdAsync(cliente.IdUsuario);
+
+            connection.SqlCommand = new SqlCommand("UPDATE usuario_cliente SET IdUsuario = @idUsuario, NomeUsuario = @nomeUsuario, EmailUsuario = @emailUsuario, NomeCliente = @nomeCliente WHERE IdCliente = @idCliente", connection.SqlConnection);
+            connection.SqlCommand.Parameters.AddWithValue("@idCliente", clienteId);
+            connection.SqlCommand.Parameters.AddWithValue("@idUsuario", novoUsuarioParaCliente.Id);
+            connection.SqlCommand.Parameters.AddWithValue("@nomeUsuario", novoUsuarioParaCliente.Nome);
+            connection.SqlCommand.Parameters.AddWithValue("@emailUsuario", novoUsuarioParaCliente.Email);
+            connection.SqlCommand.Parameters.AddWithValue("@nomeCliente",cliente.Nome);
+            connection.SqlCommand.CommandType = CommandType.Text;
+            await connection.SqlCommand.ExecuteNonQueryAsync();
+
+            connection.CloseConnection();
+        }
+
 
         public async Task<bool> VerificaSeUsuarioPossuiClienteAsync(int UsuarioId)
         {

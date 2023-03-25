@@ -80,6 +80,25 @@ namespace MiniPloomes.Controllers
            
         }
 
+        [HttpPut("{clienteId}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public async Task<ActionResult> AtualizarClienteAsync([FromBody] ClienteRequest cliente, int clienteId)
+        {
+            try
+            {
+                await _clienteService.AtualizarClienteAsync(cliente, clienteId);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+
+                return NotFound(ex.Message);
+            }
+
+        }
+
         [HttpDelete("{idCliente}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
