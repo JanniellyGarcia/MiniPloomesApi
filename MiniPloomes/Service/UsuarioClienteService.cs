@@ -70,7 +70,19 @@ namespace MiniPloomes.Service
             return usuarioEncontrado;
         }
 
+        public async Task DeletarRelacaoAsync(int idCliente)
+        {
+            DataBaseConnection connection = new DataBaseConnection();
+            connection.GetConnection();
 
+
+            connection.SqlCommand = new SqlCommand("DELETE FROM usuario_cliente WHERE IdCliente = @idCliente", connection.SqlConnection);
+            connection.SqlCommand.Parameters.AddWithValue("@idCliente", idCliente);
+            connection.SqlCommand.CommandType = CommandType.Text;
+            await connection.SqlCommand.ExecuteNonQueryAsync();
+
+            connection.CloseConnection();
+        }
 
         public async Task<bool> VerificaSeUsuarioPossuiClienteAsync(int UsuarioId)
         {

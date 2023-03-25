@@ -8,5 +8,6 @@ namespace MiniPloomes.Service.Interfaces
         Task<List<ClienteResponse>> BuscaClientePorUsuarioAsync(int UsuarioId);
         Task<UsuariobuscadoResponse> BuscarUsuarioPorIdAsync(int UsuarioId);
         Task<bool> VerificaSeUsuarioPossuiClienteAsync(int UsuarioId);
+        Task  DeletarRelacaoAsync(int idCliente);
     }
 }

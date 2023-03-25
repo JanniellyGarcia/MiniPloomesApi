@@ -8,5 +8,6 @@ namespace MiniPloomes.Service.Interfaces
         Task<List<ClienteBuscadoResponse>> BuscaTodosOsClientesAsync();
         Task<ClienteBuscadoResponse> BuscarClientePorIdAsync(int idCliente);
         Task CriarClienteAsync(ClienteRequest NovoCliente);
+        Task DeletarClienteAsync(int idCliente);
     }
 }

@@ -10,10 +10,12 @@ namespace MiniPloomes.Service
     public class ClienteService : IClienteService
     {
         private readonly IUsuarioService _usuarioService;
+        private readonly IUsuarioClienteService _usuarioClienteService;
 
-        public ClienteService(IUsuarioService usuarioService)
+        public ClienteService(IUsuarioService usuarioService, IUsuarioClienteService usuarioClienteService)
         {
             _usuarioService = usuarioService;
+            _usuarioClienteService = usuarioClienteService; 
         }
 
         public async Task<List<ClienteBuscadoResponse>> BuscaTodosOsClientesAsync()
@@ -99,6 +101,20 @@ namespace MiniPloomes.Service
             connection.CloseConnection();
         }
 
+        public async Task DeletarClienteAsync(int idCliente)
+        {
+            DataBaseConnection connection = new DataBaseConnection();
+            connection.GetConnection();
+            await BuscarClientePorIdAsync(idCliente);
 
+            await _usuarioClienteService.DeletarRelacaoAsync(idCliente);
+
+            connection.SqlCommand = new SqlCommand("DELETE FROM cliente WHERE IdCliente = @idCliente", connection.SqlConnection);
+            connection.SqlCommand.Parameters.AddWithValue("@idCliente", idCliente);
+            connection.SqlCommand.CommandType = CommandType.Text;
+            await connection.SqlCommand.ExecuteNonQueryAsync();
+
+            connection.CloseConnection();
+        }
     }
 }

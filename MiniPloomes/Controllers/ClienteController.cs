@@ -79,5 +79,24 @@ namespace MiniPloomes.Controllers
             }
            
         }
+
+        [HttpDelete("{idCliente}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public async Task<ActionResult> DeletarClienteAsync(int idCliente)
+        {
+            try
+            {
+                await _clienteService.DeletarClienteAsync(idCliente);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+
+                return NotFound(ex.Message);
+            }
+
+        }
     }
 }

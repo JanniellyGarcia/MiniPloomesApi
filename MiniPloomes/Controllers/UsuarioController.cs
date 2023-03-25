@@ -47,12 +47,31 @@ namespace MiniPloomes.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(200)]
+        [ProducesResponseType(204)]
         [ProducesResponseType(500)]
         public async Task<ActionResult> CriarUsuarioAsync([FromBody]UsuarioRequest novoUsuario)
         {
             await _usuarioService.CriarUsuarioAsync(novoUsuario);
-            return Ok();
+            return NoContent();
+        }
+
+        [HttpDelete("{idUsuario}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(409)]
+        [ProducesResponseType(500)]
+        public async Task<ActionResult> DeletaUsuarioAsync(int idUsuario)
+        {
+            try
+            {
+                await _usuarioService.DeletarUsuarioAsync(idUsuario);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+
+                return Conflict(ex.Message);
+            }
+           
         }
     }
 }

@@ -89,6 +89,24 @@ namespace MiniPloomes.Service
 
         }
 
-      
+        public async Task DeletarUsuarioAsync(int IdUsuario)
+        {
+            DataBaseConnection connection = new DataBaseConnection();
+            connection.GetConnection();
+            await BuscarUsuarioPorIdAsync(IdUsuario);
+
+            var vericaStatusUsuario = await _usuarioClienteService.VerificaSeUsuarioPossuiClienteAsync(IdUsuario);
+
+            if (vericaStatusUsuario)
+                throw new Exception("Usuário Não Deletado. Existem Clientes Atrelados a Este Usuário.");
+
+            connection.SqlCommand = new SqlCommand("DELETE FROM usuario WHERE IdUsuario = @idUsuario", connection.SqlConnection);
+            connection.SqlCommand.Parameters.AddWithValue("@idUsuario", IdUsuario);
+            connection.SqlCommand.CommandType = CommandType.Text;
+            await connection.SqlCommand.ExecuteNonQueryAsync();
+
+            connection.CloseConnection();
+
+        }
     }
 }
