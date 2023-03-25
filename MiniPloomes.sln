@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniPloomes", "MiniPloomes\MiniPloomes.csproj", "{EDFEFF3C-8168-4C1A-85EB-8701DF2523A1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EDFEFF3C-8168-4C1A-85EB-8701DF2523A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDFEFF3C-8168-4C1A-85EB-8701DF2523A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDFEFF3C-8168-4C1A-85EB-8701DF2523A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDFEFF3C-8168-4C1A-85EB-8701DF2523A1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5DC0348A-3256-402D-A398-1A989ADD88F2}
+	EndGlobalSection
+EndGlobal
