@@ -1,6 +1,6 @@
 
 # MINI PLOOMES API
-
+#### Vídeo Explicação: https://youtu.be/fwQMO5yA3i4
 ### Introdução
 
 Projeto desenvolvido como desafio 2 do teste técnico para a posição de Desenvolvedor back-end na empresa Ploomes. O repositório consiste no código da API Mini Ploomes, que simula a plataforma Ploomes. Com ela, é possível fazer operações de CRUD para usuários e clientes, além de outras operações adicionais.
