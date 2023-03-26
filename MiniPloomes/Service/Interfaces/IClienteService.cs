@@ -1,5 +1,4 @@
 ﻿using MiniPloomes.Domain.DataTrasnferObject;
-using MiniPloomes.Domain.Models;
 
 namespace MiniPloomes.Service.Interfaces
 {

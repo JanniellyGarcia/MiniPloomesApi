@@ -1,5 +1,4 @@
 ﻿using MiniPloomes.Domain.DataTrasnferObject;
-using MiniPloomes.Domain.Models;
 using MiniPloomes.Infraestructure.DatabaseConnection.cs;
 using MiniPloomes.Service.Interfaces;
 using System.Data;
@@ -15,7 +14,7 @@ namespace MiniPloomes.Service
         public ClienteService(IUsuarioService usuarioService, IUsuarioClienteService usuarioClienteService)
         {
             _usuarioService = usuarioService;
-            _usuarioClienteService = usuarioClienteService; 
+            _usuarioClienteService = usuarioClienteService;
         }
 
         public async Task<List<ClienteBuscadoResponse>> BuscaTodosOsClientesAsync()
@@ -140,6 +139,6 @@ namespace MiniPloomes.Service
             connection.CloseConnection();
         }
 
-        
+
     }
 }

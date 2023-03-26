@@ -1,5 +1,4 @@
 ﻿using MiniPloomes.Domain.DataTrasnferObject;
-using MiniPloomes.Domain.Models;
 
 namespace MiniPloomes.Service.Interfaces
 {
@@ -8,8 +7,8 @@ namespace MiniPloomes.Service.Interfaces
         Task<List<ClienteResponse>> BuscaClientePorUsuarioAsync(int usuarioId);
         Task<UsuariobuscadoResponse> BuscarUsuarioPorIdAsync(int usuarioId);
         Task<bool> VerificaSeUsuarioPossuiClienteAsync(int usuarioId);
-        Task  AtualizarUsuarioAsync(UsuarioRequest usuario, int usuarioId);
-        Task  AtualizarClienteAsync(ClienteRequest cliente, int clienteId);
-        Task  DeletarRelacaoAsync(int idCliente);
+        Task AtualizarUsuarioAsync(UsuarioRequest usuario, int usuarioId);
+        Task AtualizarClienteAsync(ClienteRequest cliente, int clienteId);
+        Task DeletarRelacaoAsync(int idCliente);
     }
 }

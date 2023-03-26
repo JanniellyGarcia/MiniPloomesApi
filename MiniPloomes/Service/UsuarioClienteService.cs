@@ -1,5 +1,4 @@
 ﻿using MiniPloomes.Domain.DataTrasnferObject;
-using MiniPloomes.Domain.Models;
 using MiniPloomes.Infraestructure.DatabaseConnection.cs;
 using MiniPloomes.Service.Interfaces;
 using System.Data;
@@ -10,7 +9,7 @@ namespace MiniPloomes.Service
 
     public class UsuarioClienteService : IUsuarioClienteService
     {
-        
+
 
         public async Task<List<ClienteResponse>> BuscaClientePorUsuarioAsync(int UsuarioId)
         {
@@ -65,7 +64,7 @@ namespace MiniPloomes.Service
                 usuarioEncontrado.Id = connection.SqlDataReader.GetInt32("IdUsuario");
                 usuarioEncontrado.Nome = connection.SqlDataReader.GetString("NomeUsuario");
                 usuarioEncontrado.Email = connection.SqlDataReader.GetString("Email");
-                usuarioEncontrado.Clientes = verificaStatusUsuario ? await BuscaClientePorUsuarioAsync(UsuarioId) : null; 
+                usuarioEncontrado.Clientes = verificaStatusUsuario ? await BuscaClientePorUsuarioAsync(UsuarioId) : null;
 
             }
             connection.CloseConnection();
@@ -102,7 +101,7 @@ namespace MiniPloomes.Service
         }
 
 
-        public async  Task AtualizarClienteAsync(ClienteRequest cliente, int clienteId)
+        public async Task AtualizarClienteAsync(ClienteRequest cliente, int clienteId)
         {
 
             DataBaseConnection connection = new DataBaseConnection();
@@ -115,7 +114,7 @@ namespace MiniPloomes.Service
             connection.SqlCommand.Parameters.AddWithValue("@idUsuario", novoUsuarioParaCliente.Id);
             connection.SqlCommand.Parameters.AddWithValue("@nomeUsuario", novoUsuarioParaCliente.Nome);
             connection.SqlCommand.Parameters.AddWithValue("@emailUsuario", novoUsuarioParaCliente.Email);
-            connection.SqlCommand.Parameters.AddWithValue("@nomeCliente",cliente.Nome);
+            connection.SqlCommand.Parameters.AddWithValue("@nomeCliente", cliente.Nome);
             connection.SqlCommand.CommandType = CommandType.Text;
             await connection.SqlCommand.ExecuteNonQueryAsync();
 
@@ -150,7 +149,7 @@ namespace MiniPloomes.Service
             return true;
         }
 
-      
+
     }
 
 

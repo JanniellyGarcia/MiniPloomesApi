@@ -1,5 +1,4 @@
 ﻿using MiniPloomes.Domain.DataTrasnferObject;
-using MiniPloomes.Domain.Models;
 using MiniPloomes.Infraestructure.DatabaseConnection.cs;
 using MiniPloomes.Service.Interfaces;
 using System.Data;
@@ -17,7 +16,7 @@ namespace MiniPloomes.Service
 
         }
 
-       
+
 
         public async Task<List<UsuariobuscadoResponse>> BuscarTodosUsuariosAsync()
         {
@@ -30,7 +29,7 @@ namespace MiniPloomes.Service
             connection.SqlCommand = new SqlCommand("SELECT * FROM usuario", connection.SqlConnection);
             connection.SqlCommand.CommandType = CommandType.Text;
             connection.SqlDataReader = await connection.SqlCommand.ExecuteReaderAsync();
-           
+
             while (connection.SqlDataReader.Read())
             {
                 var verificaStatusUsuario = await _usuarioClienteService.VerificaSeUsuarioPossuiClienteAsync(connection.SqlDataReader.GetInt32("IdUsuario"));
@@ -39,14 +38,14 @@ namespace MiniPloomes.Service
                     Id = connection.SqlDataReader.GetInt32("IdUsuario"),
                     Nome = connection.SqlDataReader.GetString("NomeUsuario"),
                     Email = connection.SqlDataReader.GetString("Email"),
-                    Clientes = verificaStatusUsuario  ? await _usuarioClienteService.BuscaClientePorUsuarioAsync(connection.SqlDataReader.GetInt32("IdUsuario")) : null,
-            };
+                    Clientes = verificaStatusUsuario ? await _usuarioClienteService.BuscaClientePorUsuarioAsync(connection.SqlDataReader.GetInt32("IdUsuario")) : null,
+                };
                 usuarios.Add(usuario);
             }
 
             connection.CloseConnection();
 
-            return usuarios;    
+            return usuarios;
         }
 
         public async Task<UsuarioResponse> BuscarUsuarioPorIdAsync(int IdUsuario)
@@ -87,12 +86,12 @@ namespace MiniPloomes.Service
             connection.SqlCommand.Parameters.AddWithValue("@email", usuario.Email);
             connection.SqlCommand.CommandType = CommandType.Text;
             await connection.SqlCommand.ExecuteNonQueryAsync();
-            
+
             connection.CloseConnection();
 
         }
 
-        public async Task AtualizarUsuarioAsync(UsuarioRequest usuario,  int idUsuario)
+        public async Task AtualizarUsuarioAsync(UsuarioRequest usuario, int idUsuario)
         {
             DataBaseConnection connection = new DataBaseConnection();
             connection.GetConnection();
@@ -101,7 +100,7 @@ namespace MiniPloomes.Service
             var vericaStatusUsuario = await _usuarioClienteService.VerificaSeUsuarioPossuiClienteAsync(idUsuario);
 
             if (vericaStatusUsuario)
-               await _usuarioClienteService.AtualizarUsuarioAsync(usuario, idUsuario);
+                await _usuarioClienteService.AtualizarUsuarioAsync(usuario, idUsuario);
 
             connection.SqlCommand = new SqlCommand("UPDATE usuario SET NomeUsuario = @nome, Email = @email WHERE IdUsuario = @id", connection.SqlConnection);
             connection.SqlCommand.Parameters.AddWithValue("@id", idUsuario);

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MiniPloomes.Domain.DataTrasnferObject;
-using MiniPloomes.Domain.Models;
 using MiniPloomes.Service.Interfaces;
+
 
 namespace MiniPloomes.Controllers
 {
@@ -17,6 +17,10 @@ namespace MiniPloomes.Controllers
             _usuarioClienteService = usuarioClienteService;
         }
 
+
+        /// <summary>
+        ///     Retorna uma lista de todos os clientes armazenados.
+        /// </summary>
         [HttpGet]
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
@@ -26,6 +30,10 @@ namespace MiniPloomes.Controllers
             return clientesBuscados;
         }
 
+
+        /// <summary>
+        ///     Retorna um cliente a partir de seu Id.
+        /// </summary>
         [HttpGet("{idCliente}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
@@ -41,9 +49,12 @@ namespace MiniPloomes.Controllers
             {
                 return NotFound(ex.Message);
             }
-           
+
         }
 
+        /// <summary>
+        ///    Retorna uma lista de clientes a partir do usuário a qual eles estiverem associados.
+        /// </summary>
         [HttpGet("Usuario/{idUsuario}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
@@ -62,10 +73,14 @@ namespace MiniPloomes.Controllers
 
         }
 
+
+        /// <summary>
+        ///    Armazena um novo cliente no banco de dados.
+        /// </summary>
         [HttpPost]
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
-        public async Task<ActionResult> CriarClienteAsync([FromBody]ClienteRequest novoCliente)
+        public async Task<ActionResult> CriarClienteAsync([FromBody] ClienteRequest novoCliente)
         {
             try
             {
@@ -77,9 +92,21 @@ namespace MiniPloomes.Controllers
 
                 return NotFound(ex.Message);
             }
-           
+
         }
 
+
+        /// <summary>
+        ///    Atualiza dados do cliente a partir de um objeto de requisição e do Id do cliente.
+        /// </summary>
+        /// <remarks>
+        ///     Observações:
+        ///  
+        ///     (1) - Ao Atualizar o cliente, além de alterar na tabela de usuário também é alterado na tabela que possui a relação usuário-cliente.
+        ///     
+        ///     (2) - Ao Alterar o usuário a qual o cliente está associado, ele também é alterado na abela que possui a relação usuário-cliente.
+        /// 
+        /// </remarks>
         [HttpPut("{clienteId}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
@@ -99,6 +126,17 @@ namespace MiniPloomes.Controllers
 
         }
 
+
+        /// <summary>
+        ///    Deleta cliente a partir de seu Id.
+        /// </summary>
+        /// <remarks>
+        ///     Observações:
+        ///  
+        ///     (1) - Ao deletar o cliente, além de alterar na tabela de usuário também é deletado na tabela que possui a relação usuário-cliente.
+        ///     
+        /// 
+        /// </remarks>
         [HttpDelete("{idCliente}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
