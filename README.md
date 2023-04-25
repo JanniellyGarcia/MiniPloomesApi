@@ -1,6 +1,6 @@
 
 # MINI PLOOMES API
-#### Vídeo Explicação: https://youtu.be/fwQMO5yA3i4
+
 ### Introdução
 
 Projeto desenvolvido como desafio 2 do teste técnico para a posição de Desenvolvedor back-end na empresa Ploomes. O repositório consiste no código da API Mini Ploomes, que simula a plataforma Ploomes. Com ela, é possível fazer operações de CRUD para usuários e clientes, além de outras operações adicionais.
@@ -36,7 +36,7 @@ Os serviços divididos por entidade, são:
 - System.Data.SqlClient
 
 ### Informações Adicionais:
-O scripT usado para criação estrutural e relacional (banco de dados, tabela, relacionamento, trigger) do banco de dados foi:
+O script usado para criação estrutural e relacional (banco de dados, tabela, relacionamento, trigger) do banco de dados foi:
 
 - Criar Banco:
 ```
